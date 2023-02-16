@@ -10,11 +10,10 @@ EXAMPLES = r'''
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-import requests
-import json
 import pyapigee
 
 def run_module():
+    
     
     module_args = dict(
         method=dict(type='str', choices=['http','https'],required=True),

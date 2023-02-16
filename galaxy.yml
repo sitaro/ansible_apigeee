@@ -43,7 +43,7 @@ tags: []
 dependencies: {}
 
 # The URL of the originating SCM repository
-repository: 
+repository: https://github.com/sitaro/ansible_apigeee
 
 # The URL to any online docs
 documentation: http://docs.example.com

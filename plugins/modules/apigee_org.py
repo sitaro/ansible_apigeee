@@ -13,8 +13,8 @@ from ansible.module_utils.basic import AnsibleModule
 import pyapigee
 
 def run_module():
-    
-    
+
+
     module_args = dict(
         method=dict(type='str', choices=['http','https'],required=True),
         mode=dict(type='str', required=False, default='create'),
@@ -25,7 +25,6 @@ def run_module():
         org=dict(type='str', required=True),
         env=dict(type='str', required=True),
         mgmtport=dict(type='str', required=False, default='8080')
-
     )
 
     result = dict(

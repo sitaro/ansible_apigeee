@@ -16,13 +16,13 @@ import pyapigee
 def run_module():
 
     module_args = dict(
-        method=dict(type='str', choices=['http','https'],required=True), 
-        mode=dict(type='str', required=False, default='create'), 
-        adminuser=dict(type='str', required=True), 
-        adminpwd=dict(type='str', required=True), 
+        method=dict(type='str', choices=['http','https'],required=True),
+        mode=dict(type='str', required=False, default='create'),
+        adminuser=dict(type='str', required=True),
+        adminpwd=dict(type='str', required=True),
         mgmtserver=dict(type='str', required=True), 
-        orgadmin=dict(type='str', required=True), 
-        org=dict(type='str', required=True), 
+        orgadmin=dict(type='str', required=True),
+        org=dict(type='str', required=True),
         env=dict(type='str', required=True), 
         mgmtport=dict(type='str', required=False, default='8080')
     )
@@ -41,7 +41,7 @@ def run_module():
 
     if module.check_mode:
         module.exit_json(**result)
-    
+
     # local variables
     method = module.params['method']
     mode = module.params['mode']
@@ -55,20 +55,20 @@ def run_module():
 
     # init apigee object
 
-    apigee = pyapigee.apigee(method,mgmtserver,mgmtport,adminuser,adminpwd)
+    apigee = pyapigee.apigee(method, mgmtserver, mgmtport, adminuser, adminpwd)
 
     if mode == 'create':
         apigee.createOrg(org)
-        apigee.associateOrg(org,'gateway')
-        apigee.addEnv(org,env)
-        apigee.addAdmin(org,orgadmin)
-        apigee.addAnalytics(org,env)
+        apigee.associateOrg(org, 'gateway')
+        apigee.addEnv(org, env)
+        apigee.addAdmin(org, orgadmin)
+        apigee.addAnalytics(org, env)
 
     if mode == 'delete':
         envs = apigee.getEnv(org)
-        response = apigee.disassociateOrg(org,'gateway')
+        response = apigee.disassociateOrg(org, 'gateway')
         for env in envs:
-            apigee.deleteEnv(org,env)
+            apigee.deleteEnv(org, env)
         apigee.deleteOrg(org)
 
     result['message'] = response.text

@@ -31,6 +31,7 @@ def run_module():
         changed=False,
         org='',
         env='',
+        admin='',
         message=''
     )
 
@@ -75,9 +76,10 @@ def run_module():
             apigee.deleteEnv(org, env)
         apigee.deleteOrg(org)
 
-    result['message'] = response.text
+    result['message'] = response.status_code
     result['org'] = org
     result['env'] = env
+    result['admin'] = orgadmin
 
     module.exit_json(**result)
 

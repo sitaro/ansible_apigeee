@@ -1,0 +1,6 @@
+- name: load python module pyapigee
+  pip:
+    name: pyapigee
+    extra_args: -i https://test.pipy.org/simple
+    state: present
+    

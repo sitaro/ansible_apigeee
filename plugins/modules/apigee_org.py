@@ -58,7 +58,7 @@ def run_module():
     apigee = pyapigee.apigee(method, mgmtserver, mgmtport, adminuser, adminpwd)
 
     if mode == 'create':
-        apigee.createOrg(org)
+        response = apigee.createOrg(org)
         apigee.associateOrg(org, 'gateway')
         apigee.addEnv(org, env)
         apigee.addAdmin(org, orgadmin)

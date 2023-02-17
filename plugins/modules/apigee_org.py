@@ -71,7 +71,7 @@ def run_module():
             apigee.deleteEnv(org, env)
         apigee.deleteOrg(org)
 
-    result['message'] = response.text
+    result['message'] = response.status_code
     result['org'] = org
     result['env'] = env
 

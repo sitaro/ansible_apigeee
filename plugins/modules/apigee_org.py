@@ -65,7 +65,7 @@ def run_module():
             module.exit_json(**result)
         apigee.associateOrg(org, 'gateway')
         apigee.addEnv(org, env)
-        respone = apigee.addAdmin(org, orgadmin)
+        response = apigee.addAdmin(org, orgadmin)
         apigee.addAnalytics(org, env)
 
     if mode == 'delete':

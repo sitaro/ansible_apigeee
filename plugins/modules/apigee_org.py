@@ -68,6 +68,7 @@ def run_module():
         apigee.addEnv(org, env)
         response = apigee.addAdmin(org, orgadmin)
         apigee.addAnalytics(org, env)
+        apigee.addToAnalytics(org,env)
 
     if mode == 'delete':
         envs = apigee.getEnv(org)

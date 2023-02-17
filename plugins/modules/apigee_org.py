@@ -59,7 +59,7 @@ def run_module():
 
     if mode == 'create':
         response = apigee.createOrg(org)
-        if response.status_code == '409':
+        if response.status_code == 409:
             result['failed'] = True
             result['message'] = 'Organization exists'
             module.exit_json(**result)

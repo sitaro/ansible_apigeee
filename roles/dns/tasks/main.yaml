@@ -1,0 +1,23 @@
+- name: create private key
+  community.crypto.openssl_privatekey:
+    path: /etc/pki/cert/private/account.key
+    size: 2048
+
+- name: create account key
+  community.crypto.acme_account:
+    account_key_src: /etc/pki/cert/private/account.key
+    state: present
+    terms_agreed: true
+    contact:
+    - mailto:mpaezolt@gmail.com
+
+- name: create privatekey for server
+  community.crypto.openssl_privatekey:
+    path: "/etc/pki/cert/private/{{ domain }}.key"
+    size: 2048
+
+- name: create CSR
+  openssl_csr:
+    path: "/etc/pki/csr/{{ domain }}.csr"
+    privatekey_path: "/etc/pki/csr/{{ domain }}.key"
+    common_name: "{{ domain }}"

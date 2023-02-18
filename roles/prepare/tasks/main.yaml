@@ -1,0 +1,79 @@
+---
+- name: prepare
+  block:
+        
+    - name: update os
+      yum:
+        name: "*"
+        state: latest
+        update_only: yes
+
+    - name: disable firewall
+      systemd:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: set hostname
+      hostname:
+        name: "{{ hostname }}"
+
+    - name: disable ipv6
+      sysctl:
+        name: net.ipv6.conf.all.disable_ipv6
+        value: 1
+        state: present
+
+    - name: disable selinux
+      lineinfile:
+        regexp: "^SELINUX=.*"
+        line: "SELINUX=disabled"
+        path: /etc/selinux/config
+      register: selinux_state
+
+    - name: install epel repo
+      yum:
+        name: oracle-epel-release-el7
+        state: present
+
+    - name: install packages
+      yum:
+        name: 
+          - bind-utils
+          - python3
+        state: present
+
+    - name: install python modules
+      pip:
+        name:
+          - pip
+          - setuptools
+        state: latest
+
+    - name: install python modules
+      pip:
+        name:
+          - cryptography
+        state: latest
+
+    - name: reboot to shutdown selinux
+      reboot:
+      # var: selinux_state  debug:
+      
+
+    - name: create group apigee
+      group:
+        name: apigee
+        gid: 200
+
+    - name: create user apigee
+      user:
+        name: apigee
+        uid: 500
+        group: apigee
+  when:
+    -  inventory_hostname in groups.apigee
+
+  tags:
+    - install_all
+    - prepare
